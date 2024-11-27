@@ -1,0 +1,253 @@
+MariaDB [studentidentitymanagement]> INSERT INTO address (Street, City, State, Zipcode) VALUES
+    -> ('123 Main St', 'Springfield', 'IL', '62704'),
+    -> ('456 Oak St', 'Madison', 'WI', '53703'),
+    -> ('789 Pine St', 'Austin', 'TX', '73301'),
+    -> ('101 Maple Ave', 'Denver', 'CO', '80202'),
+    -> ('202 Birch Rd', 'Seattle', 'WA', '98101'),
+    -> ('303 Elm Dr', 'Miami', 'FL', '33101'),
+    -> ('404 Cedar Ln', 'Boston', 'MA', '02108'),
+    -> ('505 Walnut St', 'Chicago', 'IL', '60601'),
+    -> ('606 Ash St', 'Portland', 'OR', '97201'),
+    -> ('707 Fir St', 'San Diego', 'CA', '92101');
+Query OK, 10 rows affected (0.091 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+MariaDB [studentidentitymanagement]> INSERT INTO admin (Username, Password) VALUES
+    -> ('admin1', 'password1'),
+    -> ('admin2', 'password2'),
+    -> ('admin3', 'password3'),
+    -> ('admin4', 'password4'),
+    -> ('admin5', 'password5'),
+    -> ('admin6', 'password6'),
+    -> ('admin7', 'password7'),
+    -> ('admin8', 'password8'),
+    -> ('admin9', 'password9'),
+    -> ('admin10', 'password10');
+Query OK, 10 rows affected (0.003 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+MariaDB [studentidentitymanagement]> INSERT INTO auditlog (EntityType, Operation, EntityId, OperationDate) VALUES
+    -> ('student', 'CREATE', 1, '2024-11-01 10:00:00'),
+    -> ('course', 'UPDATE', 2, '2024-11-02 11:30:00'),
+    -> ('admin', 'DELETE', 3, '2024-11-03 09:15:00'),
+    -> ('student', 'CREATE', 4, '2024-11-04 14:45:00'),
+    -> ('course', 'UPDATE', 5, '2024-11-05 13:20:00'),
+    -> ('admin', 'DELETE', 6, '2024-11-06 08:50:00'),
+    -> ('student', 'CREATE', 7, '2024-11-07 12:10:00'),
+    -> ('course', 'UPDATE', 8, '2024-11-08 15:30:00'),
+    -> ('admin', 'DELETE', 9, '2024-11-09 16:40:00'),
+    -> ('student', 'CREATE', 10, '2024-11-10 17:55:00');
+Query OK, 10 rows affected (0.003 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+MariaDB [studentidentitymanagement]> INSERT INTO course (Name, Code, Grade, DepartmentId) VALUES
+    -> ('Math 101', 'MATH101', 85.50, 1),
+    -> ('Physics 101', 'PHYS101', 90.00, 2),
+    -> ('Chemistry 101', 'CHEM101', 88.00, 3),
+    -> ('Biology 101', 'BIOL101', 92.00, 4),
+    -> ('History 101', 'HIST101', 84.00, 5),
+    -> ('English 101', 'ENG101', 89.50, 6),
+    -> ('Art 101', 'ART101', 78.00, 7),
+    -> ('Music 101', 'MUS101', 80.00, 8),
+    -> ('Computer Science 101', 'CS101', 95.00, 9),
+    -> ('Philosophy 101', 'PHIL101', 85.00, 10);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`studentidentitymanagement`.`course`, CONSTRAINT `course_ibfk_1` FOREIGN KEY (`DepartmentId`) REFERENCES `department` (`Id`))
+MariaDB [studentidentitymanagement]> INSERT INTO department (Name, Office) VALUES
+    -> ('Mathematics', 'Room 101'),
+    -> ('Physics', 'Room 102'),
+    -> ('Chemistry', 'Room 103'),
+    -> ('Biology', 'Room 104'),
+    -> ('History', 'Room 105'),
+    -> ('English', 'Room 106'),
+    -> ('Art', 'Room 107'),
+    -> ('Music', 'Room 108'),
+    -> ('Computer Science', 'Room 109'),
+    -> ('Philosophy', 'Room 110');
+Query OK, 10 rows affected (0.003 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+MariaDB [studentidentitymanagement]> INSERT INTO enrollment (EnrollDate, StudentId, CourseId) VALUES
+    -> ('2024-09-01', 1, 1),
+    -> ('2024-09-02', 2, 2),
+    -> ('2024-09-03', 3, 3),
+    -> ('2024-09-04', 4, 4),
+    -> ('2024-09-05', 5, 5),
+    -> ('2024-09-06', 6, 6),
+    -> ('2024-09-07', 7, 7),
+    -> ('2024-09-08', 8, 8),
+    -> ('2024-09-09', 9, 9),
+    -> ('2024-09-10', 10, 10);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`studentidentitymanagement`.`enrollment`, CONSTRAINT `enrollment_ibfk_1` FOREIGN KEY (`StudentId`) REFERENCES `student` (`Id`))
+MariaDB [studentidentitymanagement]> INSERT INTO users (username, password_hash, role) VALUES
+    -> ('user1', 'hash1', 'student'),
+    -> ('user2', 'hash2', 'student'),
+    -> ('user3', 'hash3', 'admin'),
+    -> ('user4', 'hash4', 'student'),
+    -> ('user5', 'hash5', 'admin'),
+    -> ('user6', 'hash6', 'student'),
+    -> ('user7', 'hash7', 'student'),
+    -> ('user8', 'hash8', 'admin'),
+    -> ('user9', 'hash9', 'student'),
+    -> ('user10', 'hash10', 'admin');
+Query OK, 10 rows affected (0.004 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+MariaDB [studentidentitymanagement]> SELECT * FROM department;
++----+------------------+----------+
+| Id | Name             | Office   |
++----+------------------+----------+
+|  1 | Computer Science | Room 101 |
+|  2 | Mathematics      | Room 202 |
+|  3 | Mathematics      | Room 101 |
+|  4 | Physics          | Room 102 |
+|  5 | Chemistry        | Room 103 |
+|  6 | Biology          | Room 104 |
+|  7 | History          | Room 105 |
+|  8 | English          | Room 106 |
+|  9 | Art              | Room 107 |
+| 10 | Music            | Room 108 |
+| 11 | Computer Science | Room 109 |
+| 12 | Philosophy       | Room 110 |
++----+------------------+----------+
+12 rows in set (0.001 sec)
+
+MariaDB [studentidentitymanagement]> INSERT INTO course (Name, Code, Grade, DepartmentId) VALUES
+    -> ('Math 101', 'MATH101', 85.50, 1),
+    -> ('Physics 101', 'PHYS101', 90.00, 2),
+    -> ('Chemistry 101', 'CHEM101', 88.00, 3),
+    -> ('Biology 101', 'BIOL101', 92.00, 4),
+    -> ('History 101', 'HIST101', 84.00, 5),
+    -> ('English 101', 'ENG101', 89.50, 6),
+    -> ('Art 101', 'ART101', 78.00, 7),
+    -> ('Music 101', 'MUS101', 80.00, 8),
+    -> ('Computer Science 101', 'CS101', 95.00, 9),
+    -> ('Philosophy 101', 'PHIL101', 85.00, 10);
+Query OK, 10 rows affected (0.003 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+MariaDB [studentidentitymanagement]> SELECT * FROM students;
+ERROR 1146 (42S02): Table 'studentidentitymanagement.students' doesn't exist
+MariaDB [studentidentitymanagement]> SELECT * FROM student;
++----+-----------+----------+----------------+
+| Id | FirstName | LastName | EnrollmentDate |
++----+-----------+----------+----------------+
+|  1 | John      | Doe      | 2023-01-15     |
+|  2 | Jane      | Smith    | 2023-05-20     |
++----+-----------+----------+----------------+
+2 rows in set (0.001 sec)
+
+MariaDB [studentidentitymanagement]> INSERT INTO student (Id, FirstName, LastName, EnrollmentDate) VALUES
+    -> (1, 'John', 'Doe', '2024-08-15'),
+    -> (2, 'Jane', 'Smith', '2024-08-16'),
+    -> (3, 'Mike', 'Johnson', '2024-08-17'),
+    -> (4, 'Emily', 'Davis', '2024-08-18'),
+    -> (5, 'Chris', 'Brown', '2024-08-19'),
+    -> (6, 'Sarah', 'Miller', '2024-08-20'),
+    -> (7, 'David', 'Wilson', '2024-08-21'),
+    -> (8, 'Emma', 'Moore', '2024-08-22'),
+    -> (9, 'Daniel', 'Taylor', '2024-08-23'),
+    -> (10, 'Sophia', 'Anderson', '2024-08-24');
+ERROR 1062 (23000): Duplicate entry '1' for key 'PRIMARY'
+MariaDB [studentidentitymanagement]> INSERT INTO student (FirstName, LastName, EnrollmentDate) VALUES
+    -> ('John', 'Doe', '2024-08-15'),
+    -> ('Jane', 'Smith', '2024-08-16'),
+    -> ('Mike', 'Johnson', '2024-08-17'),
+    -> ('Emily', 'Davis', '2024-08-18'),
+    -> ('Chris', 'Brown', '2024-08-19'),
+    -> ('Sarah', 'Miller', '2024-08-20'),
+    -> ('David', 'Wilson', '2024-08-21'),
+    -> ('Emma', 'Moore', '2024-08-22'),
+    -> ('Daniel', 'Taylor', '2024-08-23'),
+    -> ('Sophia', 'Anderson', '2024-08-24');
+Query OK, 10 rows affected (0.005 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+MariaDB [studentidentitymanagement]> SELECT * FROM courses;
+ERROR 1146 (42S02): Table 'studentidentitymanagement.courses' doesn't exist
+MariaDB [studentidentitymanagement]> SELECT * FROM course;
++----+----------------------+---------+-------+--------------+
+| Id | Name                 | Code    | Grade | DepartmentId |
++----+----------------------+---------+-------+--------------+
+|  1 | Data Structures      | CS101   |  NULL |            1 |
+|  2 | Calculus             | MATH101 |  NULL |            2 |
+| 13 | Math 101             | MATH101 | 85.50 |            1 |
+| 14 | Physics 101          | PHYS101 | 90.00 |            2 |
+| 15 | Chemistry 101        | CHEM101 | 88.00 |            3 |
+| 16 | Biology 101          | BIOL101 | 92.00 |            4 |
+| 17 | History 101          | HIST101 | 84.00 |            5 |
+| 18 | English 101          | ENG101  | 89.50 |            6 |
+| 19 | Art 101              | ART101  | 78.00 |            7 |
+| 20 | Music 101            | MUS101  | 80.00 |            8 |
+| 21 | Computer Science 101 | CS101   | 95.00 |            9 |
+| 22 | Philosophy 101       | PHIL101 | 85.00 |           10 |
++----+----------------------+---------+-------+--------------+
+12 rows in set (0.000 sec)
+
+MariaDB [studentidentitymanagement]> INSERT INTO enrollment (EnrollDate, StudentId, CourseId) VALUES
+    -> ('2024-09-01', 1, 1),
+    -> ('2024-09-02', 2, 2),
+    -> ('2024-09-03', 3, 3),
+    -> ('2024-09-04', 4, 4),
+    -> ('2024-09-05', 5, 5),
+    -> ('2024-09-06', 6, 6),
+    -> ('2024-09-07', 7, 7),
+    -> ('2024-09-08', 8, 8),
+    -> ('2024-09-09', 9, 9),
+    -> ('2024-09-10', 10, 10);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`studentidentitymanagement`.`enrollment`, CONSTRAINT `enrollment_ibfk_2` FOREIGN KEY (`CourseId`) REFERENCES `course` (`Id`))
+MariaDB [studentidentitymanagement]> SELECT * FROM enrollment
+    -> \c
+MariaDB [studentidentitymanagement]> SELECT * FROM enrollment;
++----+------------+-----------+----------+
+| Id | EnrollDate | StudentId | CourseId |
++----+------------+-----------+----------+
+|  1 | 2023-08-01 |         1 |        1 |
+|  2 | 2023-08-15 |         2 |        2 |
++----+------------+-----------+----------+
+2 rows in set (0.000 sec)
+
+MariaDB [studentidentitymanagement]> INSERT INTO enrollment (EnrollDate, StudentId, CourseId) VALUES
+    -> ('2024-09-03', 3, 3),
+    -> ('2024-09-04', 4, 4),
+    -> ('2024-09-05', 5, 5),
+    -> ('2024-09-06', 6, 6),
+    -> ('2024-09-07', 7, 7),
+    -> ('2024-09-08', 8, 8),
+    -> ('2024-09-09', 9, 9),
+    -> ('2024-09-10', 10, 10);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`studentidentitymanagement`.`enrollment`, CONSTRAINT `enrollment_ibfk_2` FOREIGN KEY (`CourseId`) REFERENCES `course` (`Id`))
+MariaDB [studentidentitymanagement]> INSERT INTO enrollment (EnrollDate, StudentId, CourseId) VALUES ('2024-05-17', '4', '13');
+Query OK, 1 row affected (0.003 sec)
+
+MariaDB [studentidentitymanagement]> INSERT INTO enrollment (EnrollDate, StudentId, CourseId) VALUES ('2024-09-21', '5', '14');
+Query OK, 1 row affected (0.003 sec)
+
+MariaDB [studentidentitymanagement]> INSERT INTO enrollment (EnrollDate, StudentId, CourseId) VALUES ('2024-11-28', '6', '16');
+Query OK, 1 row affected (0.003 sec)
+
+MariaDB [studentidentitymanagement]> INSERT INTO enrollment (EnrollDate, StudentId, CourseId) VALUES ('2024-12-14', '7', '17');
+Query OK, 1 row affected (0.003 sec)
+
+MariaDB [studentidentitymanagement]>  INSERT INTO enrollment (EnrollDate, StudentId, CourseId) VALUES ('2024-10-04', '6', '19'), ('2024-09-27', '7', '20'), ('2024-02-19', '8', '21'), ('2024-04-29', '9', '22');
+Query OK, 4 rows affected (0.004 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+MariaDB [studentidentitymanagement]> DESCRIBE users;
++---------------+-------------------------+------+-----+---------+----------------+
+| Field         | Type                    | Null | Key | Default | Extra          |
++---------------+-------------------------+------+-----+---------+----------------+
+| Id            | int(11)                 | NO   | PRI | NULL    | auto_increment |
+| username      | varchar(100)            | NO   |     | NULL    |                |
+| password_hash | varchar(255)            | NO   |     | NULL    |                |
+| role          | enum('admin','student') | NO   |     | NULL    |                |
++---------------+-------------------------+------+-----+---------+----------------+
+4 rows in set (0.020 sec)
+
+MariaDB [studentidentitymanagement]> SELECT id, username, password_hash, role FROM users WHERE username = 'admin10';
++----+----------+---------------+---------+
+| id | username | password_hash | role    |
++----+----------+---------------+---------+
+|  1 | admin10  | dobby         | student |
++----+----------+---------------+---------+
+1 row in set (0.001 sec)
+

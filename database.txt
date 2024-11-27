@@ -148,3 +148,17 @@ MariaDB [StudentIdentityManagement]> CREATE TABLE users(
     -> );
 Query OK, 0 rows affected (0.012 sec)
 
+MariaDB [StudentIdentityManagement]> Describe Student
+    -> \c
+MariaDB [StudentIdentityManagement]> Describe Student;
++----------------+-------------+------+-----+---------+----------------+
+| Field          | Type        | Null | Key | Default | Extra          |
++----------------+-------------+------+-----+---------+----------------+
+| Id             | int(11)     | NO   | PRI | NULL    | auto_increment |
+| FirstName      | varchar(50) | NO   |     | NULL    |                |
+| LastName       | varchar(50) | NO   |     | NULL    |                |
+| EnrollmentDate | date        | NO   |     | NULL    |                |
++----------------+-------------+------+-----+---------+----------------+
+4 rows in set (0.013 sec)
+
+MariaDB [StudentIdentityManagement]> \t C:\Users\Michael\Student Identity Managaement System\databse.txt

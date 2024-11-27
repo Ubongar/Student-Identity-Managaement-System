@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student CRUD Application</title>
+</head>
+<body>
+  <h1>Student CRUD Application</h1>
+
+  <!-- Form to Add a New Student -->
+  <form action="/add" method="POST">
+    <input type="text" name="name" placeholder="Name" required>
+    <input type="number" name="age" placeholder="Age" required>
+    <input type="text" name="grade" placeholder="Grade" required>
+    <button type="submit">Add Student</button>
+  </form>
+
+  <h2>Students List</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Grade</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% students.forEach(function(student) { %>
+        <tr>
+          <td><%= student.name %></td>
+          <td><%= student.age %></td>
+          <td><%= student.grade %></td>
+          <td>
+            <!-- Form to Update Student -->
+            <form action="/update" method="POST" style="display: inline;">
+              <input type="hidden" name="id" value="<%= student.id %>">
+              <input type="text" name="name" value="<%= student.name %>" required>
+              <input type="number" name="age" value="<%= student.age %>" required>
+              <input type="text" name="grade" value="<%= student.grade %>" required>
+              <button type="submit">Update</button>
+            </form>
+            
+            <!-- Form to Delete Student -->
+            <form action="/delete" method="POST" style="display: inline;">
+              <input type="hidden" name="id" value="<%= student.id %>">
+              <button type="submit">Delete</button>
+            </form>
+          </td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+</body>
+</html>

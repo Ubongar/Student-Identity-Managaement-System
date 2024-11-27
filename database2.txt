@@ -1,0 +1,114 @@
+MariaDB [(none)]> SHOW databases;
++---------------------------+
+| Database                  |
++---------------------------+
+| db_class                  |
+| grp_a                     |
+| hr                        |
+| information_schema        |
+| mysql                     |
+| performance_schema        |
+| phpmyadmin                |
+| studentidentitymanagement |
+| test                      |
++---------------------------+
+9 rows in set (0.002 sec)
+
+MariaDB [(none)]> USE studentidentitymanagement
+Database changed
+MariaDB [studentidentitymanagement]> Describe users;
++---------------+-------------------------+------+-----+---------+----------------+
+| Field         | Type                    | Null | Key | Default | Extra          |
++---------------+-------------------------+------+-----+---------+----------------+
+| Id            | int(11)                 | NO   | PRI | NULL    | auto_increment |
+| username      | varchar(100)            | NO   |     | NULL    |                |
+| password_hash | varchar(255)            | NO   |     | NULL    |                |
+| role          | enum('admin','student') | NO   |     | NULL    |                |
++---------------+-------------------------+------+-----+---------+----------------+
+4 rows in set (0.022 sec)
+
+MariaDB [studentidentitymanagement]> INSERT INTO users (username, password_hash, role)
+    -> VALUES
+    -> ('admin1', 'hashed_password_for_admin1', 'admin'),
+    -> ('student1', 'hashed_password_for_student1', 'student'),
+    -> ('admin2', 'hashed_password_for_admin2', 'admin'),
+    -> ('student2', 'hashed_password_for_student2', 'student'),
+    -> ('student3', 'hashed_password_for_student3', 'student');
+Query OK, 5 rows affected (0.006 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+MariaDB [studentidentitymanagement]> INSERT INTO users (username, password_hash, role)
+    -> VALUES
+    -> ('admin1', 'hashed_password_for_admin1', 'admin'),
+    -> ('student1', 'hashed_password_for_student1', 'student'),
+    -> ('admin2', 'hashed_password_for_admin2', 'admin'),
+    -> ('student2', 'hashed_password_for_student2', 'student'),
+    -> ('student3', 'hashed_password_for_student3', 'student');
+Query OK, 5 rows affected (0.003 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+MariaDB [studentidentitymanagement]> INSERT INTO users (username, password_hash, role)
+    -> VALUES
+    -> ('admin1', 'hashed_password_for_admin1', 'admin'),
+    -> ('student1', 'hashed_password_for_student1', 'student'),
+    -> ('admin2', 'hashed_password_for_admin2', 'admin'),
+    -> ('student2', 'hashed_password_for_student2', 'student'),
+    -> ('student3', 'hashed_password_for_student3', 'student');
+Query OK, 5 rows affected (0.003 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+MariaDB [studentidentitymanagement]> SELCECT * FROM users;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'SELCECT * FROM users' at line 1
+MariaDB [studentidentitymanagement]> SELCECT * FROM users;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'SELCECT * FROM users' at line 1
+MariaDB [studentidentitymanagement]> SELECT * FROM users;
++----+----------+------------------------------+---------+
+| Id | username | password_hash                | role    |
++----+----------+------------------------------+---------+
+|  1 | admin1   | hashed_password_for_admin1   | admin   |
+|  2 | student1 | hashed_password_for_student1 | student |
+|  3 | admin2   | hashed_password_for_admin2   | admin   |
+|  4 | student2 | hashed_password_for_student2 | student |
+|  5 | student3 | hashed_password_for_student3 | student |
+|  6 | admin1   | hashed_password_for_admin1   | admin   |
+|  7 | student1 | hashed_password_for_student1 | student |
+|  8 | admin2   | hashed_password_for_admin2   | admin   |
+|  9 | student2 | hashed_password_for_student2 | student |
+| 10 | student3 | hashed_password_for_student3 | student |
+| 11 | admin1   | hashed_password_for_admin1   | admin   |
+| 12 | student1 | hashed_password_for_student1 | student |
+| 13 | admin2   | hashed_password_for_admin2   | admin   |
+| 14 | student2 | hashed_password_for_student2 | student |
+| 15 | student3 | hashed_password_for_student3 | student |
++----+----------+------------------------------+---------+
+15 rows in set (0.001 sec)
+
+MariaDB [studentidentitymanagement]> UPDATE users
+    -> SET username = 'admin10', password_hash = 'dobby', role = 'student'
+    -> WHERE Id = 1;
+Query OK, 1 row affected (0.003 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [studentidentitymanagement]> SELECT * FROM users;
++----+----------+------------------------------+---------+
+| Id | username | password_hash                | role    |
++----+----------+------------------------------+---------+
+|  1 | admin10  | dobby                        | student |
+|  2 | student1 | hashed_password_for_student1 | student |
+|  3 | admin2   | hashed_password_for_admin2   | admin   |
+|  4 | student2 | hashed_password_for_student2 | student |
+|  5 | student3 | hashed_password_for_student3 | student |
+|  6 | admin1   | hashed_password_for_admin1   | admin   |
+|  7 | student1 | hashed_password_for_student1 | student |
+|  8 | admin2   | hashed_password_for_admin2   | admin   |
+|  9 | student2 | hashed_password_for_student2 | student |
+| 10 | student3 | hashed_password_for_student3 | student |
+| 11 | admin1   | hashed_password_for_admin1   | admin   |
+| 12 | student1 | hashed_password_for_student1 | student |
+| 13 | admin2   | hashed_password_for_admin2   | admin   |
+| 14 | student2 | hashed_password_for_student2 | student |
+| 15 | student3 | hashed_password_for_student3 | student |
++----+----------+------------------------------+---------+
+15 rows in set (0.000 sec)
+
+MariaDB [studentidentitymanagement]> exit
