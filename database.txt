@@ -1,0 +1,150 @@
+MariaDB [(none)]> SHOW databses
+    -> \c
+MariaDB [(none)]> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| db_class           |
+| grp_a              |
+| hr                 |
+| information_schema |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| test               |
++--------------------+
+8 rows in set (0.065 sec)
+
+MariaDB [(none)]> CREATE DATABASE StudentIdentityManagement;
+Query OK, 1 row affected (0.002 sec)
+
+MariaDB [(none)]> USE StudentIdentityManagement;
+Database changed
+MariaDB [StudentIdentityManagement]> CREATE TABLE Student(
+    -> Id INT AUTO_INCREMENT PRIMARY KEY,
+    -> FirstName VARCHAR(50) NOT NULL,
+    -> LastName VARCHAR(50) NOT NULL,
+    -> EnrollmentDate DATE NOT NULL
+    -> );
+Query OK, 0 rows affected (0.009 sec)
+
+MariaDB [StudentIdentityManagement]> CREATE TABLE Address(
+    -> Id INT AUTO_INCREMENT PRIMARY KEY,
+    -> Street VARCHAR(100) NOT NULL,
+    -> City VARCHAR(50) NOT NULL,
+    -> State VARCHAR(50) NOT NULL,
+    -> Zipcode VARCHAR(10) NOT NULL
+    -> );
+Query OK, 0 rows affected (0.011 sec)
+
+MariaDB [StudentIdentityManagement]> CREATE TABLE Department(
+    -> Id INT AUTO_INCREMENT PRIMARY KEY,
+    -> Name VARCHAR(50) NOT NULL,
+    -> Office VARCHAR(50)
+    -> );
+Query OK, 0 rows affected (0.011 sec)
+
+MariaDB [StudentIdentityManagement]> CREATE TABLE Course(
+    -> Id INT AUTO_INCREMENT PRIMARY KEY,
+    -> Name VARCHAR(50) NOT NULL,
+    -> Code VARCHAR(20) NOT NULL,
+    -> Grade DECIMAL(4, 2),
+    -> DepartmentId INT NOT NULL,
+    -> FOREIGN KEY (DepartmentId) REFERENCES Department(Id)
+    -> );
+Query OK, 0 rows affected (0.052 sec)
+
+MariaDB [StudentIdentityManagement]> CREATE TABLE Enrollment(
+    -> Id INT AUTO_INCREMENT PRIMARY KEY,
+    -> EnrollDate DATE NOT NULL,
+    -> StudentId INT NOT NULL,
+    -> CourseId INT NOT NULL,
+    -> FOREIGN KEY (StudentId) REFERENCES Student(Id),
+    -> FOREIGN KEY (CourseId) REFERENCES Course(Id)
+    -> );
+Query OK, 0 rows affected (0.034 sec)
+
+MariaDB [StudentIdentityManagement]> CREATE TABLE AuditLog(
+    -> Id INT AUTO_INCREMENT PRIMARY KEY,
+    -> EntityType VARCHAR(50) NOT NULL,
+    -> Operation VARCHAR(50) NOT NULL,
+    -> EntityId INT NOT NULL,
+    -> OperationDate DATETIME NOT NULL
+    -> );
+Query OK, 0 rows affected (0.010 sec)
+
+MariaDB [StudentIdentityManagement]> DESCRIBE DATABASE
+    -> \C
+ERROR: Usage: \C charset_name | charset charset_name
+    -> \c
+MariaDB [StudentIdentityManagement]> DESCRIBE DATABASE;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'DATABASE' at line 1
+MariaDB [StudentIdentityManagement]> DESCRIBE AuditLog
+    -> \c
+MariaDB [StudentIdentityManagement]> DESCRIBE AuditLog;
++---------------+-------------+------+-----+---------+----------------+
+| Field         | Type        | Null | Key | Default | Extra          |
++---------------+-------------+------+-----+---------+----------------+
+| Id            | int(11)     | NO   | PRI | NULL    | auto_increment |
+| EntityType    | varchar(50) | NO   |     | NULL    |                |
+| Operation     | varchar(50) | NO   |     | NULL    |                |
+| EntityId      | int(11)     | NO   |     | NULL    |                |
+| OperationDate | datetime    | NO   |     | NULL    |                |
++---------------+-------------+------+-----+---------+----------------+
+5 rows in set (0.014 sec)
+
+MariaDB [StudentIdentityManagement]> INSERT INTO Student (FirstName, LastName, EnrollmentDate) VALUES ('John', 'Doe', '2023-01-15'), ('Jane', 'Smith', '2023-05-20');
+Query OK, 2 rows affected (0.046 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+MariaDB [StudentIdentityManagement]> SELECT * FROM Student;
++----+-----------+----------+----------------+
+| Id | FirstName | LastName | EnrollmentDate |
++----+-----------+----------+----------------+
+|  1 | John      | Doe      | 2023-01-15     |
+|  2 | Jane      | Smith    | 2023-05-20     |
++----+-----------+----------+----------------+
+2 rows in set (0.000 sec)
+
+MariaDB [StudentIdentityManagement]> INSERT INTO Address (Street, City, State, Zipcode) VALUES ('123 Elm Str', 'Springfield', 'IL', '62701'), ('456 Oak Str', 'Chicago', 'IL', '60601');
+Query OK, 2 rows affected (0.004 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+MariaDB [StudentIdentityManagement]> INSERT INTO Department (Name, Office) VALUES ('Computer Science', 'Room 101'), (
+    -> \c
+MariaDB [StudentIdentityManagement]> INSERT INTO Department (Name, Office) VALUES ('Computer Science', 'Room 101'), ('Mathematics', 'Room 202');
+Query OK, 2 rows affected (0.004 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+MariaDB [StudentIdentityManagement]> INSERT INTO Course (Name, Code, Grade, DepartmentId)
+    -> \c
+MariaDB [StudentIdentityManagement]> INSERT INTO Course (Name, Code, Grade, DepartmentId) VALUES ('Data Structures', 'CS101', NULL, 1), ('Calculus', 'MATH101', NULL, 2);
+Query OK, 2 rows affected (0.005 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+MariaDB [StudentIdentityManagement]> INSERT INTO Enrollment (EnrollDate, StudentId, CourseId) VALUES ('2023-08-01', 1, 1), ('2023-08-15', 2, 2);
+Query OK, 2 rows affected (0.004 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+MariaDB [StudentIdentityManagement]> INSERT INTO AuditLog (EntityType, Operation, EntityId, OperationDate) VALUES ('Student', 'INSERT', 1, '2023-01-15 10:00:00'), ('Course', 'UPDATE', 1, '2023-08-01 14:30:00');
+Query OK, 2 rows affected (0.003 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+MariaDB [StudentIdentityManagement]> CREATE TABLE Admin(
+    -> Id INT AUTO_INCREMENT PRIMARY KEY,
+    -> Username VARCHAR(50) UNIQUE NOT NULL,
+    -> Password VARCHAR(255) NOT NULL
+    -> );
+Query OK, 0 rows affected (0.023 sec)
+
+MariaDB [StudentIdentityManagement]> INSERT INTO Admin (Username, Password) VALUES ('admin', SHA2('adminpassword', 256));
+Query OK, 1 row affected (0.004 sec)
+
+MariaDB [StudentIdentityManagement]> CREATE TABLE users(
+    -> Id INT AUTO_INCREMENT PRIMARY KEY,
+    -> username VARCHAR(100) NOT NULL,
+    -> password_hash VARCHAR(255) NOT NULL,
+    -> role ENUM('admin', 'student') NOT NULL
+    -> );
+Query OK, 0 rows affected (0.012 sec)
+
